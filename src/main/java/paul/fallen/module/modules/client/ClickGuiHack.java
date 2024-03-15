@@ -66,7 +66,7 @@ public class ClickGuiHack extends Module {
     public void onEnable() {
         try {
             super.onEnable();
-            ClientSupport.mc.displayGuiScreen(FALLENClient.INSTANCE.getClickgui());
+            ClientSupport.mc.pushGuiLayer(FALLENClient.INSTANCE.getClickgui());
 
             // Set to default
             if (FALLENClient.INSTANCE.getClickgui().primary == FALLENClient.INSTANCE.getClickgui().secondary) {
@@ -97,7 +97,7 @@ public class ClickGuiHack extends Module {
 
             FALLENClient.INSTANCE.getCommandManager().prefix = prefix.sval == "minus" ? "-" : ".";
 
-            if (!(mc.currentScreen == FALLENClient.INSTANCE.getClickgui())) {
+            if (!(mc.screen == FALLENClient.INSTANCE.getClickgui())) {
                 setState(false);
                 onDisable();
             }
@@ -109,7 +109,7 @@ public class ClickGuiHack extends Module {
     public void onKeyPress(InputEvent.KeyInputEvent event) {
         try {
             if (event.getKey() == GLFW.GLFW_KEY_ESCAPE) {
-                ClientSupport.mc.currentScreen.closeScreen();
+                ClientSupport.mc.screen.onClose();
                 setState(false);
                 onDisable();
             }

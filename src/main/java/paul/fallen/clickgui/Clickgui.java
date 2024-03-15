@@ -1,10 +1,13 @@
 package paul.fallen.clickgui;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.InputMappings;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.util.FormattedCharSequence;
 import org.lwjgl.glfw.GLFW;
 import paul.fallen.FALLENClient;
 import paul.fallen.clickgui.comp.*;
@@ -16,6 +19,7 @@ import paul.fallen.utils.render.UIUtils;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Clickgui extends Screen {
@@ -46,10 +50,10 @@ public class Clickgui extends Screen {
     public ArrayList<Comp> comps = new ArrayList<>();
 
     public Clickgui() {
-        super(new StringTextComponent("clickgui"));
+        super(new TextComponent("clickgui"));
         dragging = false;
-        int scaledWidth = Minecraft.getInstance().getMainWindow().getScaledWidth();
-        int scaledHeight = Minecraft.getInstance().getMainWindow().getScaledHeight();
+        int scaledWidth = Minecraft.getInstance().getWindow().getGuiScaledWidth();
+        int scaledHeight = Minecraft.getInstance().getWindow().getGuiScaledHeight();
         posX = scaledWidth / 2 - 150;
         posY = scaledHeight / 2 - 100;
         width = posX + 150 * 2 * 2;
@@ -65,7 +69,7 @@ public class Clickgui extends Screen {
             comp.keyPressed(keyCode, scanCode, modifiers);
         }
 
-        String cha = InputMappings.getInputByCode(keyCode, scanCode).func_237520_d_().getString();
+        String cha = GLFW.glfwGetKeyName(keyCode, scanCode);
         if (cha.length() <= 1) {
             searchInquiry.append(cha);
         } else if (keyCode == GLFW.GLFW_KEY_BACKSPACE) {
@@ -255,8 +259,8 @@ public class Clickgui extends Screen {
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+    public void render(PoseStack p_96562_, int mouseX, int mouseY, float p_96565_) {
+        super.render(p_96562_, mouseX, mouseY, p_96565_);
         if (dragging) {
             posX = mouseX - dragX;
             posY = mouseY - dragY;
@@ -302,7 +306,7 @@ public class Clickgui extends Screen {
         UIUtils.drawTextOnScreen(calendar.getTime().toString(), (int) ((int) posX + width - 160), (int) (posY - 8), new Color(textRGB).getRGB());
 
         // Format the time as hours:minutes:seconds
-        UIUtils.drawTextOnScreen(convertTicksToHMS(Minecraft.getInstance().player.ticksExisted), (int) ((int) posX + width - 280), (int) (posY - 8), new Color(textRGB).getRGB());
+        UIUtils.drawTextOnScreen(convertTicksToHMS(Minecraft.getInstance().player.tickCount), (int) ((int) posX + width - 280), (int) (posY - 8), new Color(textRGB).getRGB());
 
         int offset = 0;
         for (Module.Category category : Module.Category.values()) {

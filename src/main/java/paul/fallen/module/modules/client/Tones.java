@@ -72,14 +72,14 @@ public class Tones extends Module {
             if (FALLENClient.INSTANCE.getMusicManager().getMp3Files().size() > 0) {
                 if (track != null) {
                     // Calculate the width of the window and the position for the text
-                    int windowWidth = mc.getMainWindow().getScaledWidth();
+                    int windowWidth = mc.getWindow().getGuiScaledWidth();
                     int textPositionX = windowWidth / 2 - 100;
 
                     // Draw the "Now playing" text
                     drawText("Now playing " + track.musicFile.getName(), textPositionX, 3, new Color(FALLENClient.INSTANCE.getClickgui().textRGB));
 
                     double progress = (double) track.clip.getMicrosecondPosition() / (double) track.clip.getMicrosecondLength();
-                    int progressBarWidth = (int) (mc.fontRenderer.getStringWidth("Now playing " + track.musicFile.getName()) * progress); // Assuming the total width of the bar is 200 pixels
+                    int progressBarWidth = (int) (mc.font.width("Now playing " + track.musicFile.getName()) * progress); // Assuming the total width of the bar is 200 pixels
 
                     // Draw the progress bar
                     UIUtils.drawRect(textPositionX, 18, progressBarWidth, 5, new Color(FALLENClient.INSTANCE.getClickgui().textRGB).getRGB());

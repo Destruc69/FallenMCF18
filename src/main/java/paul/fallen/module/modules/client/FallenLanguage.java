@@ -1,6 +1,6 @@
 package paul.fallen.module.modules.client;
 
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -47,7 +47,7 @@ public class FallenLanguage extends Module {
     @SubscribeEvent
     public void onServerChat(ServerChatEvent event) {
         String decodedMessage = decode(event.getMessage());
-        event.setComponent(new StringTextComponent(decodedMessage));
+        event.setComponent(new TextComponent(decodedMessage));
     }
 
     private String obfuscate(String str) {
