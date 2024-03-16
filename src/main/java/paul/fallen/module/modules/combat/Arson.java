@@ -1,14 +1,9 @@
 package paul.fallen.module.modules.combat;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.network.play.client.CPlayerPacket;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import paul.fallen.module.Module;
@@ -39,13 +34,13 @@ public final class Arson extends Module {
 
             if (entity != null) {
                 assert mc.player != null;
-                if (mc.player.getHeldItemMainhand().getItem() == Items.FLINT_AND_STEEL) {
+                if (mc.player.getMainHandItem().getItem() == Items.FLINT_AND_STEEL) {
                     BlockPos posToLight = getPosToLight(entity);
                     if (posToLight != null) {
-                        assert mc.world != null;
-                        if (mc.world.getBlockState(posToLight).getBlock() != Blocks.FIRE) {
+                        assert mc.level != null;
+                        if (mc.level.getBlockState(posToLight).getBlock() != Blocks.FIRE) {
                             //mc.playerController.processRightClickBlock(mc.player, mc.world, posToLight, EnumFacing.UP, new Vec3d(0.5, 0, 0.5), EnumHand.MAIN_HAND);
-                            assert mc.playerController != null;
+                            assert mc != null;
                             PlayerControllerUtils.rightClickBlock(new Vector3d(0.5, 0, 0.5), Direction.DOWN, posToLight);
                             mc.player.swingArm(Hand.MAIN_HAND);
 

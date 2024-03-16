@@ -7,7 +7,10 @@
  */
 package paul.fallen.module.modules.combat;
 
+import com.mojang.authlib.minecraft.client.MinecraftClient;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import paul.fallen.module.Module;
 
@@ -22,6 +25,21 @@ public final class AntiSwing extends Module {
         try {
             assert mc.player != null;
             mc.player.swingTime = 0;
+
+
+            PlayerEvent.StartTracking
+
+            Player player = MinecraftClient..player;
+            if (player != null) {
+                PlayerInteractionManager interactionManager = player.interactionManager;
+                // Now you can use interactionManager for player interactions
+            } else {
+                // Handle case when player is not available
+            }
+
+
+
+
         } catch (Exception ignored) {
         }
     }
