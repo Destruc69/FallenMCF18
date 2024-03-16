@@ -21,7 +21,7 @@ public class MusicManager implements ClientSupport {
     }
 
     public void loadMp3Files() {
-        File dir = new File(mc.gameDir + File.separator + "Fallen" + File.separator + "music");
+        File dir = new File(mc.gameDirectory + File.separator + "Fallen" + File.separator + "music");
         if (dir.exists() && dir.isDirectory()) {
             File[] files = dir.listFiles();
             if (files != null) {

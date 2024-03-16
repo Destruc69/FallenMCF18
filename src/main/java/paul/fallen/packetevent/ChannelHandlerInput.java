@@ -27,7 +27,7 @@ public class ChannelHandlerInput {
 
             firstConnection = false;
 
-            ChannelPipeline pipeline = event.getNetworkManager().channel().pipeline();
+            ChannelPipeline pipeline = event.getConnection().channel().pipeline();
 
             pipeline.addBefore("packet_handler", "listener", new PacketListener());
         }

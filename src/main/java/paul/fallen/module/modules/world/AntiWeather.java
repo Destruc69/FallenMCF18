@@ -27,11 +27,8 @@ public final class AntiWeather extends Module {
     public void onDisable() {
         try {
             if (opposite.bval) {
-                assert mc.world != null;
-                mc.world.rainingStrength = 0f;
-                mc.world.prevRainingStrength = 0f;
-                mc.world.thunderingStrength = 0f;
-                mc.world.prevThunderingStrength = 0f;
+                assert mc.level != null;
+                mc.level.rainLevel = 0;
             }
         } catch (Exception ignored) {
         }
@@ -41,17 +38,9 @@ public final class AntiWeather extends Module {
     public void onTick(TickEvent.PlayerTickEvent event) {
         try {
             if (!opposite.bval) {
-                assert mc.world != null;
-                mc.world.rainingStrength = 0f;
-                mc.world.prevRainingStrength = 0f;
-                mc.world.thunderingStrength = 0f;
-                mc.world.prevThunderingStrength = 0f;
+                mc.level.rainLevel = 0;
             } else {
-                assert mc.world != null;
-                mc.world.rainingStrength = 1f;
-                mc.world.prevRainingStrength = 1f;
-                mc.world.thunderingStrength = 1f;
-                mc.world.prevThunderingStrength = 1f;
+                mc.level.rainLevel = 1;
             }
         } catch (Exception ignored) {
         }

@@ -1,6 +1,6 @@
 package paul.fallen.packetevent;
 
-import net.minecraft.network.IPacket;
+import net.minecraft.network.protocol.Packet;
 import net.minecraftforge.eventbus.api.Cancelable;
 import net.minecraftforge.eventbus.api.Event;
 
@@ -14,23 +14,23 @@ import net.minecraftforge.eventbus.api.Event;
 @Cancelable
 public class PacketEvent extends Event {
 
-    private IPacket<?> packet;
+    private Packet<?> packet;
 
-    public PacketEvent(IPacket<?> packet) {
+    public PacketEvent(Packet<?> packet) {
         this.packet = packet;
     }
 
-    public IPacket<?> getPacket() {
+    public Packet<?> getPacket() {
         return packet;
     }
 
-    public void setPacket(IPacket<?> packet) {
+    public void setPacket(Packet<?> packet) {
         this.packet = packet;
     }
 
     public static class Outgoing extends PacketEvent {
 
-        public Outgoing(IPacket<?> packetIn) {
+        public Outgoing(Packet<?> packetIn) {
             super(packetIn);
         }
 
@@ -38,7 +38,7 @@ public class PacketEvent extends Event {
 
     public static class Incoming extends PacketEvent {
 
-        public Incoming(IPacket<?> packetIn) {
+        public Incoming(Packet<?> packetIn) {
             super(packetIn);
         }
 

@@ -46,7 +46,7 @@ public final class Discord extends Module {
     public void onTick(TickEvent.PlayerTickEvent event) {
         try {
             assert mc.player != null;
-            presence.details = mc.player.getName() + " | " + Objects.requireNonNull(mc.getCurrentServerData()).serverIP;
+            presence.details = mc.player.getName() + " | " + Objects.requireNonNull(mc.getCurrentServer()).ip;
             presence.state = mc.player.getHealth() + " / " + mc.player.getMaxHealth();
         } catch (Exception ignored) {
         }

@@ -1,11 +1,12 @@
 package paul.fallen.pathfinder;
 
-import net.minecraft.block.Blocks;
+import com.mojang.math.Vector3d;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
 import paul.fallen.FALLENClient;
+import paul.fallen.utils.client.MathUtils;
 import paul.fallen.utils.render.RenderUtils;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class AStarCustomPathFinder {
         hubsToWork.clear();
         ArrayList<Vector3d> initPath = new ArrayList<Vector3d>();
         initPath.add(startVector3d);
-        hubsToWork.add(new Hub(startVector3d, null, initPath, startVector3d.squareDistanceTo(endVector3d), 0, 0));
+        hubsToWork.add(new Hub(startVector3d, null, initPath, MathUtils.getDistance(startVector3d, endVector3d), 0, 0));
         search:
         for (int i = 0; i < loops; i++) {
             Collections.sort(hubsToWork, new CompareHub());
@@ -72,7 +73,7 @@ public class AStarCustomPathFinder {
                     hubs.add(hub);
 
                     for (Vector3d direction : flatCardinalDirections) {
-                        Vector3d loc = hub.getLoc().add(direction);
+                        Vector3d loc = new Vector3d(hub.getLoc().x + direction.x, hub.getLoc().y + direction.y, hub.getLoc().z + direction.z);
                         if (checkPositionValidity(loc, false)) {
                             if (addHub(hub, loc, 0)) {
                                 break search;
@@ -80,14 +81,14 @@ public class AStarCustomPathFinder {
                         }
                     }
 
-                    Vector3d loc1 = hub.getLoc().add(0, 1, 0);
+                    Vector3d loc1 = new Vector3d(hub.getLoc().x, hub.getLoc().y + 1, hub.getLoc().z);
                     if (checkPositionValidity(loc1, false)) {
                         if (addHub(hub, loc1, 0)) {
                             break search;
                         }
                     }
 
-                    Vector3d loc2 = hub.getLoc().add(0, -1, 0);
+                    Vector3d loc2 = new Vector3d(hub.getLoc().x, hub.getLoc().y - 1, hub.getLoc().z);
                     if (checkPositionValidity(loc2, false)) {
                         if (addHub(hub, loc2, 0)) {
                             break search;
@@ -118,12 +119,12 @@ public class AStarCustomPathFinder {
     }
 
     private static boolean isBlockSolid(BlockPos block) {
-        return !Minecraft.getInstance().world.getBlockState(block).getBlock().equals(Blocks.AIR);
+        return !Minecraft.getInstance().level.getBlockState(block).getBlock().equals(Blocks.AIR);
     }
 
     private static boolean isSafeToWalkOn(BlockPos block) {
         Minecraft mc = Minecraft.getInstance();
-        return mc.world.getBlockState(block).getBlock().equals(Blocks.AIR) && !mc.world.getBlockState(block.add(0, -1, 0)).getBlock().equals(Blocks.AIR) && mc.world.getBlockState(block.add(0, 1, 0)).getBlock().equals(Blocks.AIR);
+        return mc.level.getBlockState(block).getBlock().equals(Blocks.AIR) && !mc.level.getBlockState(block.offset(0, -1, 0)).getBlock().equals(Blocks.AIR) && mc.level.getBlockState(block.offset(0, 1, 0)).getBlock().equals(Blocks.AIR);
     }
 
     public Hub isHubExisting(Vector3d loc) {
@@ -147,7 +148,7 @@ public class AStarCustomPathFinder {
             totalCost += parent.getTotalCost();
         }
         if (existingHub == null) {
-            if (loc.equals(endVector3d) || (minDistanceSquared != 0 && loc.squareDistanceTo(endVector3d) <= minDistanceSquared)) {
+            if (loc.equals(endVector3d) || (minDistanceSquared != 0 && MathUtils.getDistance(loc, endVector3d) <= minDistanceSquared)) {
                 path.clear();
                 path = new ArrayList<Vector3d>(parent.getPath());
                 path.add(loc);
@@ -155,7 +156,7 @@ public class AStarCustomPathFinder {
             } else {
                 ArrayList<Vector3d> path = new ArrayList<Vector3d>(parent.getPath());
                 path.add(loc);
-                hubsToWork.add(new Hub(loc, parent, path, loc.squareDistanceTo(endVector3d), cost, totalCost));
+                hubsToWork.add(new Hub(loc, parent, path, MathUtils.getDistance(loc, endVector3d), cost, totalCost));
             }
         } else if (existingHub.getCost() > cost) {
             ArrayList<Vector3d> path = new ArrayList<Vector3d>(parent.getPath());
@@ -163,7 +164,7 @@ public class AStarCustomPathFinder {
             existingHub.setLoc(loc);
             existingHub.setParent(parent);
             existingHub.setPath(path);
-            existingHub.setSquareDistanceToFromTarget(loc.squareDistanceTo(endVector3d));
+            existingHub.setSquareDistanceToFromTarget(MathUtils.getDistance(loc, endVector3d));
             existingHub.setCost(cost);
             existingHub.setTotalCost(totalCost);
         }
@@ -247,10 +248,10 @@ public class AStarCustomPathFinder {
 
     public double[] calculateMotion(ArrayList<Vector3d> path, double rotationYaw, double speed) {
         Minecraft mc = Minecraft.getInstance();
-        double playerX = mc.player.getPosX();
-        double playerZ = mc.player.getPosZ();
-        double velocityX = mc.player.getMotion().x;
-        double velocityZ = mc.player.getMotion().z;
+        double playerX = mc.player.getX();
+        double playerZ = mc.player.getZ();
+        double velocityX = mc.player.getDeltaMovement().x;
+        double velocityZ = mc.player.getDeltaMovement().z;
 
         rotationYaw = Math.toRadians(rotationYaw);
 
@@ -258,17 +259,17 @@ public class AStarCustomPathFinder {
         double closestBlockDistance = Double.POSITIVE_INFINITY;
 
         for (int i = 0; i < path.size(); i++) {
-            double distance = mc.player.getDistanceSq(new Vector3d(path.get(i).getX(), path.get(i).getY(), path.get(i).getZ()));
+            double distance = MathUtils.getDistance(new Vector3d(mc.player.position().x, mc.player.position().y, mc.player.position().z), new Vector3d(path.get(i).x, path.get(i).y, path.get(i).z));
             if (distance < closestBlockDistance) {
                 closestBlockDistance = distance;
                 closestBlockIndex = i;
             }
         }
 
-        BlockPos closestBlock = new BlockPos(path.get(closestBlockIndex));
+        BlockPos closestBlock = new BlockPos(new BlockPos(path.get(closestBlockIndex).x, path.get(closestBlockIndex).y, path.get(closestBlockIndex).z));
 
         // Ensure we don't exceed the array size when accessing nextBlock
-        BlockPos nextBlock = (closestBlockIndex == path.size() - 1) ? closestBlock : new BlockPos(path.get(closestBlockIndex + 1));
+        BlockPos nextBlock = (closestBlockIndex == path.size() - 1) ? closestBlock : new BlockPos(path.get(closestBlockIndex + 1).x, path.get(closestBlockIndex + 1).y, path.get(closestBlockIndex + 1).z);
 
         // Adjust delta values based on player's velocity
         double deltaX = nextBlock.getX() + 0.5 - playerX + velocityX;
@@ -301,56 +302,51 @@ public class AStarCustomPathFinder {
     }
 
     public Vector3d getTargetPosition(ArrayList<Vector3d> path) {
+        Minecraft mc = Minecraft.getInstance();
         int closestBlockIndex = 0;
         double closestBlockDistance = Double.POSITIVE_INFINITY;
 
         for (int i = 0; i < path.size(); i++) {
-            double distance = Minecraft.getInstance().player.getDistanceSq(new Vector3d(path.get(i).getX(), path.get(i).getY(), path.get(i).getZ()));
+            double distance = MathUtils.getDistance(new Vector3d(mc.player.position().x, mc.player.position().y, mc.player.position().z), new Vector3d(path.get(i).x, path.get(i).y, path.get(i).z));
             if (distance < closestBlockDistance) {
                 closestBlockDistance = distance;
                 closestBlockIndex = i;
             }
         }
 
-        BlockPos closestBlock = new BlockPos(path.get(closestBlockIndex));
+        BlockPos closestBlock = new BlockPos(new BlockPos(path.get(closestBlockIndex).x, path.get(closestBlockIndex).y, path.get(closestBlockIndex).z));
 
         // Ensure we don't exceed the array size when accessing nextBlock
-        BlockPos nextBlock = (closestBlockIndex == path.size() - 1) ? closestBlock : new BlockPos(path.get(closestBlockIndex + 1));
+        BlockPos nextBlock = (closestBlockIndex == path.size() - 1) ? closestBlock : new BlockPos(path.get(closestBlockIndex + 1).x, path.get(closestBlockIndex + 1).y, path.get(closestBlockIndex + 1).z);
+
         return new Vector3d(nextBlock.getX(), nextBlock.getY(), nextBlock.getZ());
     }
 
-    public void renderPath(RenderWorldLastEvent event) {
-        if (path.size() > 0) {
-            for (int i = 0; i < path.size() - 1; i++) {
-                if (path.get(i + 1) != null) {
-                    RenderUtils.drawLine(new BlockPos(path.get(i).x + 0.5, path.get(i).y, path.get(i).z + 0.5), new BlockPos(path.get(i + 1).x + 0.5, path.get(i + 1).y, path.get(i + 1).z + 0.5), 0, 1, 0, event);
-                }
-            }
-        }
+    public void renderPath(RenderLevelStageEvent event) {
     }
 
     public boolean hasReachedEndOfPath() {
-        return Minecraft.getInstance().player.getDistanceSq(this.getPath().get(this.getPath().size() - 1)) < 1;
+        return MathUtils.getDistance(new Vector3d(Minecraft.getInstance().player.position().x, Minecraft.getInstance().player.position().y, Minecraft.getInstance().player.position().z), this.getPath().get(this.getPath().size() - 1)) < 1;
     }
 
     public void move() {
         Minecraft mc = Minecraft.getInstance();
-        double[] m = calculateMotion(this.getPath(), Math.toRadians(mc.player.rotationYaw), mc.player.isSprinting() ? 0.26 : 0.2);
+        double[] m = calculateMotion(this.getPath(), Math.toRadians(mc.player.rotA), mc.player.isSprinting() ? 0.26 : 0.2);
         if (FALLENClient.INSTANCE.getModuleManager().pathfinder.type.sval == "ground") {
-            mc.player.setMotion(m[0], mc.player.getMotion().y, m[1]);
+            mc.player.setDeltaMovement(m[0], mc.player.getDeltaMovement().y, m[1]);
 
-            if (getTargetPosition(this.getPath()).y > mc.player.getPosY()) {
+            if (getTargetPosition(this.getPath()).y > mc.player.getY()) {
                 if (mc.player.isOnGround()) {
-                    mc.player.jump();
+                    mc.player.jumpFromGround();
                 }
             }
         } else {
-            if (getTargetPosition(this.getPath()).y > mc.player.getPosY()) {
-                mc.player.setMotion(mc.player.getMotion().x, 1, mc.player.getMotion().z);
-            } else if (getTargetPosition(this.getPath()).y < mc.player.getPosY()) {
-                mc.player.setMotion(mc.player.getMotion().x, -1, mc.player.getMotion().z);
+            if (getTargetPosition(this.getPath()).y > mc.player.getY()) {
+                mc.player.setDeltaMovement(mc.player.getDeltaMovement().x, 1, mc.player.getDeltaMovement().z);
+            } else if (getTargetPosition(this.getPath()).y < mc.player.getY()) {
+                mc.player.setDeltaMovement(mc.player.getDeltaMovement().x, -1, mc.player.getDeltaMovement().z);
             } else {
-                mc.player.setMotion(m[0], 0, m[1]);
+                mc.player.setDeltaMovement(m[0], 0, m[1]);
             }
         }
     }

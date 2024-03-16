@@ -1,7 +1,7 @@
 package paul.fallen.module.modules.pathing;
 
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
+import com.mojang.math.Vector3d;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import paul.fallen.module.Module;
@@ -44,19 +44,19 @@ public class AutoPilot extends Module {
     public void onTick(TickEvent.PlayerTickEvent event) {
         try {
             if (initStart) {
-                aStarCustomPathFinder = new AStarCustomPathFinder(mc.player.getPositionVec(), new Vector3d(x.dval, y.dval, z.dval));
+                aStarCustomPathFinder = new AStarCustomPathFinder(new Vector3d(mc.player.position().x, mc.player.position().y, mc.player.position().z), new Vector3d(x.dval, y.dval, z.dval));
                 aStarCustomPathFinder.compute();
                 initStart = false;
             }
 
             if (aStarCustomPathFinder.getPath().size() <= 0) {
-                aStarCustomPathFinder = new AStarCustomPathFinder(mc.player.getPositionVec(), new Vector3d(x.dval, y.dval, z.dval));
+                aStarCustomPathFinder = new AStarCustomPathFinder(new Vector3d(mc.player.position().x, mc.player.position().y, mc.player.position().z), new Vector3d(x.dval, y.dval, z.dval));
                 aStarCustomPathFinder.compute();
             }
 
             if (aStarCustomPathFinder.getPath().size() > 0) {
                 if (aStarCustomPathFinder.hasReachedEndOfPath()) {
-                    aStarCustomPathFinder = new AStarCustomPathFinder(mc.player.getPositionVec(), new Vector3d(x.dval, y.dval, z.dval));
+                    aStarCustomPathFinder = new AStarCustomPathFinder(new Vector3d(mc.player.position().x, mc.player.position().y, mc.player.position().z), new Vector3d(x.dval, y.dval, z.dval));
                     aStarCustomPathFinder.compute();
                 } else {
                     aStarCustomPathFinder.move();
@@ -67,10 +67,6 @@ public class AutoPilot extends Module {
     }
 
     @SubscribeEvent
-    public void onRender(RenderWorldLastEvent event) {
-        try {
-            aStarCustomPathFinder.renderPath(event);
-        } catch (Exception ignored) {
-        }
+    public void onRender(RenderLevelStageEvent event) {
     }
 }

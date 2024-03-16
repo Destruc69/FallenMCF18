@@ -1,49 +1,43 @@
 package paul.fallen.utils.render;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.Vector4f;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldVertexBufferUploader;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Vector4f;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.debug.WorldGenAttemptRenderer;
+import net.minecraft.resources.ResourceLocation;
 import paul.fallen.ClientSupport;
 
-public class UIUtils implements ClientSupport {
+public class UIUtils {
 
     // Method to draw text on the screen
     public static void drawTextOnScreen(String text, int x, int y, int color) {
-        FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-        fontRenderer.drawString(new MatrixStack(), text, x, y, color);
+        Font fontRenderer = Minecraft.getInstance().font;
+        fontRenderer.drawShadow(new PoseStack(), text, x, y, color);
     }
-
 
     // Method to draw a filled rectangle on the screen
     public static void drawRect(int x, int y, int width, int height, int color) {
-        AbstractGui.fill(new MatrixStack(), x, y, x + width, y + height, color);
+        GuiComponent.fill(new PoseStack(), x, y, x + width, y + height, color);
     }
 
     public static void drawRect(double x, double y, double width, double height, int color) {
         fill(x, y, x + width, y + height, color);
     }
 
-
     // Method to draw a filled gradient rectangle on the screen
-    //public static void drawGradientRect(double x, double y, double width, double height, int color1, int color2) {
-    //    fillGradient(x, y, x + width, y + height, color1, color2);
-    //}
-
     public static void drawGradientRect(double x, double y, double width, double height, int startColor, int endColor) {
         RenderSystem.enableBlend();
         RenderSystem.disableTexture();
         RenderSystem.defaultBlendFunc();
 
-        BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
-        bufferBuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
+        BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
+        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
         // Interpolate between startColor and endColor diagonally
         for (double yOffset = 0; yOffset < height; yOffset++) {
@@ -57,15 +51,16 @@ public class UIUtils implements ClientSupport {
                 float green = (float) (color >> 8 & 255) / 255.0F;
                 float blue = (float) (color & 255) / 255.0F;
 
-                bufferBuilder.pos(x + xOffset, y + yOffset + 1, 0.0F).color(red, green, blue, alpha).endVertex();
-                bufferBuilder.pos(x + xOffset + 1, y + yOffset + 1, 0.0F).color(red, green, blue, alpha).endVertex();
-                bufferBuilder.pos(x + xOffset + 1, y + yOffset, 0.0F).color(red, green, blue, alpha).endVertex();
-                bufferBuilder.pos(x + xOffset, y + yOffset, 0.0F).color(red, green, blue, alpha).endVertex();
+                bufferBuilder.vertex(x + xOffset, y + yOffset + 1, 0.0F).color(red, green, blue, alpha).endVertex();
+                bufferBuilder.vertex(x + xOffset + 1, y + yOffset + 1, 0.0F).color(red, green, blue, alpha).endVertex();
+                bufferBuilder.vertex(x + xOffset + 1, y + yOffset, 0.0F).color(red, green, blue, alpha).endVertex();
+                bufferBuilder.vertex(x + xOffset, y + yOffset, 0.0F).color(red, green, blue, alpha).endVertex();
             }
         }
 
-        bufferBuilder.finishDrawing();
-        WorldVertexBufferUploader.draw(bufferBuilder);
+        bufferBuilder.end();
+        MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
+        bufferSource.endBatch();
 
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
@@ -75,10 +70,10 @@ public class UIUtils implements ClientSupport {
         Vector4f startVec = unpackColor(startColor);
         Vector4f endVec = unpackColor(endColor);
 
-        float red = lerp(startVec.getX(), endVec.getX(), ratio);
-        float green = lerp(startVec.getY(), endVec.getY(), ratio);
-        float blue = lerp(startVec.getZ(), endVec.getZ(), ratio);
-        float alpha = lerp(startVec.getW(), endVec.getW(), ratio);
+        float red = lerp(startVec.x(), endVec.x(), ratio);
+        float green = lerp(startVec.y(), endVec.y(), ratio);
+        float blue = lerp(startVec.z(), endVec.z(), ratio);
+        float alpha = lerp(startVec.w(), endVec.w(), ratio);
 
         return packColor(red, green, blue, alpha);
     }
@@ -126,11 +121,11 @@ public class UIUtils implements ClientSupport {
         float f6 = (float) (color2 >> 8 & 255) / 255.0F;
         float f7 = (float) (color2 & 255) / 255.0F;
 
-        BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
+        BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
         RenderSystem.enableBlend();
         RenderSystem.disableTexture();
         RenderSystem.defaultBlendFunc();
-        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
+        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
         // Draw vertices with interpolated colors
         for (double y = minY; y < maxY; y++) {
@@ -140,14 +135,15 @@ public class UIUtils implements ClientSupport {
             float b = f2 * (1 - lerpFactor) + f7 * lerpFactor;
             float a = f3 * (1 - lerpFactor) + f4 * lerpFactor;
 
-            bufferbuilder.pos(minX, y, 0).color(r, g, b, a).endVertex();
-            bufferbuilder.pos(maxX, y, 0).color(r, g, b, a).endVertex();
-            bufferbuilder.pos(maxX, y + 1, 0).color(r, g, b, a).endVertex();
-            bufferbuilder.pos(minX, y + 1, 0).color(r, g, b, a).endVertex();
+            bufferbuilder.vertex(minX, y, 0).color(r, g, b, a).endVertex();
+            bufferbuilder.vertex(maxX, y, 0).color(r, g, b, a).endVertex();
+            bufferbuilder.vertex(maxX, y + 1, 0).color(r, g, b, a).endVertex();
+            bufferbuilder.vertex(minX, y + 1, 0).color(r, g, b, a).endVertex();
         }
 
-        bufferbuilder.finishDrawing();
-        WorldVertexBufferUploader.draw(bufferbuilder);
+        bufferbuilder.end();
+        MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
+        bufferSource.endBatch();
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
@@ -170,23 +166,19 @@ public class UIUtils implements ClientSupport {
         float green = (float) (color >> 8 & 255) / 255.0F;
         float blue = (float) (color & 255) / 255.0F;
 
-        BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
+        BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
         RenderSystem.enableBlend();
         RenderSystem.disableTexture();
         RenderSystem.defaultBlendFunc();
-        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        bufferbuilder.pos(minX, maxY, 0.0F).color(red, green, blue, alpha).endVertex();
-        bufferbuilder.pos(maxX, maxY, 0.0F).color(red, green, blue, alpha).endVertex();
-        bufferbuilder.pos(maxX, minY, 0.0F).color(red, green, blue, alpha).endVertex();
-        bufferbuilder.pos(minX, minY, 0.0F).color(red, green, blue, alpha).endVertex();
-        bufferbuilder.finishDrawing();
-        WorldVertexBufferUploader.draw(bufferbuilder);
+        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+        bufferbuilder.vertex(minX, maxY, 0.0F).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.vertex(maxX, maxY, 0.0F).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.vertex(maxX, minY, 0.0F).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.vertex(minX, minY, 0.0F).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.end();
+        MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
+        bufferSource.endBatch();
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
-    }
-
-    public static void drawCustomSizedTexture(ResourceLocation resourceLocation, int x, int y, int textureX, int textureY, int width, int height, int textureWidth, int textureHeight) {
-        Minecraft.getInstance().getTextureManager().bindTexture(resourceLocation);
-        AbstractGui.blit(new MatrixStack(), x, y, textureX, textureY, width, height, textureWidth, textureHeight);
     }
 }

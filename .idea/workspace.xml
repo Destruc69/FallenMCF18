@@ -6,12 +6,94 @@
   <component name="ChangeListManager">
     <list default="true" id="bc2179b0-872c-4c5e-b697-edaea85b7105" name="Changes" comment="this">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/AntiSwing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/AntiSwing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/Arson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/Arson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/ModuleManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/module/ModuleManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/Arson.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/AutoArmorHack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/AutoEat.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/AutoTNT.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/AutoTotem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/BackTrack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/ComboAttack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/Criticals.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/CrystalAuraHack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/FastBow.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/InfiniteAura.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/Killaura.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/LegitFightBot.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/NoKnockBack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/Regen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/combat/WTap.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/AntiAFK.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/AntiHunger.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/AntiVoid.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/AutoMove.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/AutoSneak.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/AutoSwimHack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/BlinkHack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/ElytraFlight.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/EntityFlight.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/EntitySpeed.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/FastFall.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/FastLadderHack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/Flight.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/GlideHack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/HighJump.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/InvMove.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/Jesus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/LongJump.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/NoSlowDown.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/Speed.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/Step.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/TridentFlight.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/movement/YawLock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/pathing/AutoMine.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/pathing/AutoPilot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/pathing/AutoPilot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/player/AntiCollide.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/player/AntiCooldown.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/player/AntiForge.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/player/Cheststealer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/player/Disabler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/player/Discord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/player/Discord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/player/Freeze.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/player/HandPosition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/player/HideMyAss.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/player/MoreInv.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/player/NoFall.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/player/ServerCrasher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/player/Timer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/render/AntiRender.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/render/BodySpin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/render/Breadcrumbs.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/render/Chams.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/render/ChestEspHack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/render/FreeCam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/render/FullbrightHack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/render/FullbrightHack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/render/HeadRoll.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/render/ItemEspHack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/render/MobEspHack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/render/PlayerEspHack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/render/WaypointModule.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/world/AntiWeather.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/world/AntiWeather.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/world/AutoHighway.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/world/AutoMount.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/world/AutoTool.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/world/FastBreak.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/world/Nuker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/world/OverKill.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/module/modules/world/Scaffold.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/music/MusicManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/music/MusicManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/packetevent/ChannelHandlerInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/packetevent/ChannelHandlerInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/packetevent/PacketEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/packetevent/PacketEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/packetevent/PacketListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/packetevent/PacketListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/pathfinder/AStarCustomPathFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/pathfinder/AStarCustomPathFinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/setting/SettingManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/setting/SettingManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/client/ClientUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/client/ClientUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/client/MathUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/client/MathUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/entity/EntityUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/entity/EntityUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/entity/InventoryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/entity/InventoryUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/entity/PlayerControllerUtils.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/entity/PlayerUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/entity/PlayerUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/entity/RotationUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/entity/RotationUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/render/RenderUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/render/RenderUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/world/BlockUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/world/BlockUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/render/UIUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paul/fallen/utils/render/UIUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +142,6 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="JavaMethodFindUsagesOptions.isIncludeOverloadUsages" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -93,7 +174,14 @@
       <option name="project" value="LOCAL" />
       <updated>1710496180779</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="this">
+      <created>1710548289338</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1710548289338</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

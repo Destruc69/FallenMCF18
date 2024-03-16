@@ -67,16 +67,16 @@ public class HUD extends Module {
 			}
 
 			if (coords.bval) {
-				String coordString = Math.round(mc.player.lastTickPosX) + " " + Math.round(mc.player.lastTickPosY) + " " + Math.round(mc.player.lastTickPosZ);
-				drawText(coordString, 25 + mc.fontRenderer.getStringWidth(coordString), 10, Color.WHITE);
+				String coordString = Math.round(mc.player.getX()) + " " + Math.round(mc.player.getY()) + " " + Math.round(mc.player.getZ());
+				drawText(coordString, 25 + mc.font.width(coordString), 10, Color.WHITE);
 
 				StringBuilder stringBuilder = new StringBuilder();
 				for (int i = 0; i < coordString.length(); i++) {
 					stringBuilder.append("_");
 				}
-				drawText(stringBuilder.toString(), 25 + mc.fontRenderer.getStringWidth(coordString), 11, Color.WHITE);
-				drawText(stringBuilder.toString(), 26 + mc.fontRenderer.getStringWidth(coordString), 11, Color.WHITE);
-				drawText(stringBuilder.toString(), 24 + mc.fontRenderer.getStringWidth(coordString), 11, Color.WHITE);
+				drawText(stringBuilder.toString(), 25 + mc.font.width(coordString), 11, Color.WHITE);
+				drawText(stringBuilder.toString(), 26 + mc.font.width(coordString), 11, Color.WHITE);
+				drawText(stringBuilder.toString(), 24 + mc.font.width(coordString), 11, Color.WHITE);
 			}
 		} catch (Exception ignored) {
 		}

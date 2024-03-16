@@ -9,9 +9,8 @@ package paul.fallen.packetevent;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
-import net.minecraft.network.IPacket;
+import net.minecraft.network.protocol.Packet;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.network.NetworkEvent;
 
 public class PacketListener extends ChannelDuplexHandler {
 
@@ -20,9 +19,9 @@ public class PacketListener extends ChannelDuplexHandler {
 
 		boolean get = true;
 
-		if (msg instanceof IPacket) {
+		if (msg instanceof Packet) {
 			//if msg is packet, post new packet event
-			PacketEvent.Incoming inPacket = new PacketEvent.Incoming((IPacket<?>) msg);
+			PacketEvent.Incoming inPacket = new PacketEvent.Incoming((Packet<?>) msg);
 			MinecraftForge.EVENT_BUS.post(inPacket);
 			//if the packet is cancelled, dont process it
 			if (inPacket.isCanceled()) {
@@ -40,9 +39,9 @@ public class PacketListener extends ChannelDuplexHandler {
 
 		boolean send = true;
 
-		if (msg instanceof IPacket) {
+		if (msg instanceof Packet) {
 			//if msg is packet, post new packet event
-			PacketEvent.Outgoing outPacket = new PacketEvent.Outgoing((IPacket<?>) msg);
+			PacketEvent.Outgoing outPacket = new PacketEvent.Outgoing((Packet<?>) msg);
 			MinecraftForge.EVENT_BUS.post(outPacket);
 			//if the packet is cancelled, dont process it
 			if (outPacket.isCanceled()) {
