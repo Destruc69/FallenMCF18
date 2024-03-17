@@ -95,16 +95,16 @@ public class HUD extends Module {
 	}
 
 	private void drawText(String text, int x, int y, Color color) {
-		GL11.glPushMatrix();
-		GL11.glScaled(1, 1, 1);
+		//GL11.glPushMatrix();
+		//GL11.glScaled(1, 1, 1);
 		UIUtils.drawTextOnScreen(text, x, y, color.getRGB());
-		GL11.glPopMatrix();
+		//GL11.glPopMatrix();
 	}
 
 	private void drawText(String text, int x, int y, Color color, int scale) {
-		GL11.glPushMatrix();
-		GL11.glScaled(scale, scale, 1);
+		//GL11.glPushMatrix();
+		//GL11.glScaled(scale, scale, 1);
 		UIUtils.drawTextOnScreen(text, x, y, color.getRGB());
-		GL11.glPopMatrix();
+		//GL11.glPopMatrix();
 	}
 }

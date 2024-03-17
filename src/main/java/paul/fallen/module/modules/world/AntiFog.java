@@ -18,8 +18,7 @@ public final class AntiFog extends Module {
     }
 
     @SubscribeEvent
-    public void onFogRender(EntityViewRenderEvent.FogDensity event) {
-        event.setDensity(0.0F);
+    public void onFogRender(EntityViewRenderEvent.RenderFogEvent event) {
         event.setCanceled(true);
     }
 }

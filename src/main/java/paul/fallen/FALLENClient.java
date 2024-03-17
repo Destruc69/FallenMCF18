@@ -6,7 +6,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import paul.fallen.clickgui.Clickgui;
 import paul.fallen.command.CommandManager;
-import paul.fallen.events.GuiTweaks;
 import paul.fallen.friend.FriendManager;
 import paul.fallen.module.ModuleManager;
 import paul.fallen.music.MusicManager;
@@ -42,8 +41,6 @@ public class FALLENClient implements ClientSupport {
         MinecraftForge.EVENT_BUS.register(this);
 
         MinecraftForge.EVENT_BUS.register(new ChannelHandlerInput());
-
-        MinecraftForge.EVENT_BUS.register(new GuiTweaks());
 
         Logger.log(LogState.Normal, "Initializing Gson with pretty printing");
         this.gson = new GsonBuilder().setPrettyPrinting().create();

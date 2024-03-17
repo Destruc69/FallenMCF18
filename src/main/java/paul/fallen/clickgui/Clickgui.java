@@ -70,6 +70,7 @@ public class Clickgui extends Screen {
         }
 
         String cha = GLFW.glfwGetKeyName(keyCode, scanCode);
+        assert cha != null;
         if (cha.length() <= 1) {
             searchInquiry.append(cha);
         } else if (keyCode == GLFW.GLFW_KEY_BACKSPACE) {

@@ -25,21 +25,6 @@ public final class AntiSwing extends Module {
         try {
             assert mc.player != null;
             mc.player.swingTime = 0;
-
-
-            PlayerEvent.StartTracking
-
-            Player player = MinecraftClient..player;
-            if (player != null) {
-                PlayerInteractionManager interactionManager = player.interactionManager;
-                // Now you can use interactionManager for player interactions
-            } else {
-                // Handle case when player is not available
-            }
-
-
-
-
         } catch (Exception ignored) {
         }
     }

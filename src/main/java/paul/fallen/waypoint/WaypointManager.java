@@ -31,7 +31,7 @@ public class WaypointManager implements ClientSupport {
     }
 
     public void loadConfig(Gson gson) {
-        File dir = new File(mc.gameDir + File.separator + "Fallen" + File.separator + "waypoints");
+        File dir = new File(mc.gameDirectory + File.separator + "Fallen" + File.separator + "waypoints");
         if (dir.exists()) {
             File[] directoryListing = dir.listFiles();
             for (File f : directoryListing) {
@@ -51,9 +51,9 @@ public class WaypointManager implements ClientSupport {
 
     public void saveConfig(Gson gson) {
         for (Waypoint waypoint : this.waypoints) {
-            File file = new File(mc.gameDir + File.separator + "Fallen" + File.separator + "waypoints" + File.separator + "wp_" + waypoint.getX() + waypoint.getZ() + ".json");
+            File file = new File(mc.gameDirectory + File.separator + "Fallen" + File.separator + "waypoints" + File.separator + "wp_" + waypoint.getX() + waypoint.getZ() + ".json");
             if (!file.exists()) {
-                new File(mc.gameDir + File.separator + "Fallen" + File.separator + "waypoints").mkdirs();
+                new File(mc.gameDirectory + File.separator + "Fallen" + File.separator + "waypoints").mkdirs();
                 try {
                     file.createNewFile();
                     Logger.log(Logger.LogState.Normal, "Created new Json file: " + file.getName());
